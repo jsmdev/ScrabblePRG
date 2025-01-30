@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Scrabble {
     public enum TipusCasella {
-        EN_BLANC(' ', 0),
+        EN_BLANC('~', 0),
         DOBLE_LLETRA('l', 2),
         TRIPLE_LLETRA('L', 3),
         DOBLE_PARAULA('p', 2),
@@ -34,7 +34,7 @@ public class Scrabble {
         }
     }
 
-    private TipusCasella[][] mPunts;
+    private char[][] mPunts;
     private char[][] mFitxes;
     private int qFilesTauler;
     private int qColumnesTauler;
@@ -59,7 +59,7 @@ public class Scrabble {
             qColumnesTauler = scanner.nextInt();
         } while (qColumnesTauler % 2 == 0);
 
-        mPunts = new TipusCasella[qFilesTauler][qColumnesTauler];
+        mPunts = new char[qFilesTauler][qColumnesTauler];
         mFitxes = new char[qFilesTauler][qColumnesTauler];
 
         System.out.println("Tauler creat amb " + qFilesTauler + " files i " + qColumnesTauler + " columnes.");
@@ -68,7 +68,7 @@ public class Scrabble {
     public void inicialitzarTauler() {
         for (int i = 0; i < qFilesTauler; i++) {
             for (int j = 0; j < qColumnesTauler; j++) {
-                mPunts[i][j] = TipusCasella.EN_BLANC;
+                mPunts[i][j] = TipusCasella.EN_BLANC.getTipus();
             }
         }
         System.out.println("Tauler inicialitzat correctament.");
@@ -77,7 +77,7 @@ public class Scrabble {
     public void mostrarTauler() {
         for (int i = 0; i < qFilesTauler; i++) {
             for (int j = 0; j < qColumnesTauler; j++) {
-                System.out.print(mPunts[i][j].getTipus() + " ");
+                System.out.print(mPunts[i][j] + " ");
             }
             System.out.println();
         }
