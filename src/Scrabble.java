@@ -1,39 +1,14 @@
+// José Sancho Monrabal
+// 1 DAW - PRG
+// Variant del joc de l'Scrabble, on només participarà 1 jugador
+
+import model.TipusCasella;
+import model.Punt;
+
+import java.awt.*;
 import java.util.Scanner;
 
 public class Scrabble {
-    public enum TipusCasella {
-        EN_BLANC('~', 0),
-        DOBLE_LLETRA('l', 2),
-        TRIPLE_LLETRA('L', 3),
-        DOBLE_PARAULA('p', 2),
-        TRIPLE_PARAULA('P', 3);
-
-        private final char tipus;
-        private final int multiplicador;
-
-        TipusCasella(char simbol, int multiplicador) {
-            this.tipus = simbol;
-            this.multiplicador = multiplicador;
-        }
-
-        public char getTipus() {
-            return tipus;
-        }
-
-        public int getMultiplicador() {
-            return multiplicador;
-        }
-
-        public static TipusCasella fromChar(char c) {
-            for (TipusCasella tipus : values()) {
-                if (tipus.tipus == c) {
-                    return tipus;
-                }
-            }
-            throw new IllegalArgumentException("Caràcter no vàlid: " + c);
-        }
-    }
-
     private char[][] mPunts;
     private char[][] mFitxes;
     private int qFilesTauler;
@@ -44,6 +19,7 @@ public class Scrabble {
         scrabble.crearTauler();
         scrabble.inicialitzarTauler();
         scrabble.mostrarTauler();
+        Punt centre = scrabble.centreTauler();
     }
 
     public void crearTauler() {
@@ -81,5 +57,14 @@ public class Scrabble {
             }
             System.out.println();
         }
+    }
+
+    public Punt centreTauler() {
+        int centreFila = qFilesTauler / 2;
+        int centreColumna = qColumnesTauler / 2;
+        TipusCasella tipus = TipusCasella.fromChar(mPunts[centreFila][centreColumna]);
+        Punt centre = new Punt(centreFila, centreColumna, tipus);
+        System.out.println("Centre del tauler: " + centre.descripcio());
+        return centre;
     }
 }
