@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
 public class Scrabble {
-     public enum TipusCasella {
+    public enum TipusCasella {
+        EN_BLANC(' ', 0),
         DOBLE_LLETRA('l', 2),
         TRIPLE_LLETRA('L', 3),
         DOBLE_PARAULA('p', 2),
-        TRIPLE_PARULA('P', 3);
+        TRIPLE_PARAULA('P', 3);
 
         private final char tipus;
         private final int multiplicador;
@@ -33,12 +34,20 @@ public class Scrabble {
         }
     }
 
+    private TipusCasella[][] mPunts;
+    private char[][] mFitxes;
+    private int qFilesTauler;
+    private int qColumnesTauler;
+
     public static void main(String[] args) {
+        Scrabble scrabble = new Scrabble();
+        scrabble.crearTauler();
+        scrabble.inicialitzarTauler();
+        scrabble.mostrarTauler();
+    }
+
+    public void crearTauler() {
         Scanner scanner = new Scanner(System.in);
-        TipusCasella[][] mPunts;
-        char[][] mFitxes;
-        int qFilesTauler;
-        int qColumnesTauler;
 
         do {
             System.out.print("Ingresse la quantitat de files (imparell): ");
@@ -53,12 +62,24 @@ public class Scrabble {
         mPunts = new TipusCasella[qFilesTauler][qColumnesTauler];
         mFitxes = new char[qFilesTauler][qColumnesTauler];
 
-        mPunts[0][0] = TipusCasella.DOBLE_LLETRA;
+        System.out.println("Tauler creat amb " + qFilesTauler + " files i " + qColumnesTauler + " columnes.");
+    }
 
-        System.out.println("Files: " + mPunts.length);
-        System.out.println("Columnes: " + mPunts[0].length);
-        System.out.println("Files: " + mFitxes.length);
-        System.out.println("Columnes: " + mFitxes[0].length);
-        System.out.println("Primera casella: " + mPunts[0][0].getTipus());
+    public void inicialitzarTauler() {
+        for (int i = 0; i < qFilesTauler; i++) {
+            for (int j = 0; j < qColumnesTauler; j++) {
+                mPunts[i][j] = TipusCasella.EN_BLANC;
+            }
+        }
+        System.out.println("Tauler inicialitzat correctament.");
+    }
+
+    public void mostrarTauler() {
+        for (int i = 0; i < qFilesTauler; i++) {
+            for (int j = 0; j < qColumnesTauler; j++) {
+                System.out.print(mPunts[i][j].getTipus() + " ");
+            }
+            System.out.println();
+        }
     }
 }
