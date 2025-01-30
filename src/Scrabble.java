@@ -18,8 +18,8 @@ public class Scrabble {
         Scrabble scrabble = new Scrabble();
         scrabble.crearTauler();
         scrabble.inicialitzarTauler();
+        scrabble.inicialitzarAspes();
         scrabble.mostrarTauler();
-        Punt centre = scrabble.centreTauler();
     }
 
     public void crearTauler() {
@@ -66,5 +66,34 @@ public class Scrabble {
         Punt centre = new Punt(centreFila, centreColumna, tipus);
         System.out.println("Centre del tauler: " + centre.descripcio());
         return centre;
+    }
+
+    public void inicialitzarAspes() {
+        Punt centre = centreTauler();
+        int centreFila = centre.getFila();
+        int centreColumna = centre.getColumna();
+
+        // Pose la 'p' al centre
+        mPunts[centreFila][centreColumna] = TipusCasella.DOBLE_PARAULA.getTipus();
+
+        // Bucle per a possar la 'p' a totes les aspes alhora
+        for (int i = 1; i < Math.max(qFilesTauler, qColumnesTauler); i++) {
+            // Aspa dreta-baix
+            if (centreFila + i < qFilesTauler && centreColumna + i < qColumnesTauler) {
+                mPunts[centreFila + i][centreColumna + i] = TipusCasella.DOBLE_PARAULA.getTipus();
+            }
+            // Aspa esquerra-dalt
+            if (centreFila - i >= 0 && centreColumna - i >= 0) {
+                mPunts[centreFila - i][centreColumna - i] = TipusCasella.DOBLE_PARAULA.getTipus();
+            }
+            // Aspa dreta-dalt
+            if (centreFila - i >= 0 && centreColumna + i < qColumnesTauler) {
+                mPunts[centreFila - i][centreColumna + i] = TipusCasella.DOBLE_PARAULA.getTipus();
+            }
+            // Aspa esquerra-baix
+            if (centreFila + i < qFilesTauler && centreColumna - i >= 0) {
+                mPunts[centreFila + i][centreColumna - i] = TipusCasella.DOBLE_PARAULA.getTipus();
+            }
+        }
     }
 }
