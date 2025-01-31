@@ -5,7 +5,6 @@
 import model.TipusCasella;
 import model.Punt;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class Scrabble {
@@ -18,9 +17,10 @@ public class Scrabble {
         Scrabble scrabble = new Scrabble();
         scrabble.crearTauler();
         scrabble.inicialitzarTauler();
-        scrabble.inicialitzarAspes();
-        scrabble.inicialitzarCantons();
-        scrabble.inicialitzarMeitats();
+        scrabble.inicialitzarAspesAmbParaulesDobleTant();
+        scrabble.inicialitzarCantonsAmbParaulesTripleTant();
+        scrabble.inicialitzarMeitatsAmbParaulesTripleTant();
+        scrabble.inicialitzarLletresDobleTant();
         scrabble.mostrarTauler();
     }
 
@@ -70,7 +70,7 @@ public class Scrabble {
         return centre;
     }
 
-    public void inicialitzarAspes() {
+    public void inicialitzarAspesAmbParaulesDobleTant() {
         Punt centre = centreTauler();
         int centreFila = centre.getFila();
         int centreColumna = centre.getColumna();
@@ -99,23 +99,34 @@ public class Scrabble {
         }
     }
 
-    public void inicialitzarCantons() {
+    public void inicialitzarCantonsAmbParaulesTripleTant() {
         // Posar 'P' als quatre cantons
         mPunts[0][0] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Superior esquerra
         mPunts[0][qColumnesTauler - 1] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Superior dreta
         mPunts[qFilesTauler - 1][0] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Inferior esquerra
         mPunts[qFilesTauler - 1][qColumnesTauler - 1] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Inferior dreta
 
-        System.out.println("Quatre cantons del tauler inicialitzats amb 'P'");
+        System.out.println("Quatre cantons del tauler inicialitzats amb 'P'.");
     }
 
-    public void inicialitzarMeitats() {
+    public void inicialitzarMeitatsAmbParaulesTripleTant() {
         // Posar 'P' a la meitat de cada costat
         mPunts[0][qColumnesTauler / 2] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Superior
         mPunts[qFilesTauler - 1][qColumnesTauler / 2] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Inferior
         mPunts[qFilesTauler / 2][0] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Esquerra
         mPunts[qFilesTauler / 2][qColumnesTauler - 1] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Dreta
 
-        System.out.println("Quatre meitats de cada costat del tauler inicialitzats amb 'P'");
+        System.out.println("Quatre meitats de cada costat del tauler inicialitzats amb 'P'.");
+    }
+
+    public void inicialitzarLletresDobleTant() {
+        int numAleatoriFiles = (int)(Math.random() * qFilesTauler);
+        int numAleatoriColumnes = (int)(Math.random() * qColumnesTauler);
+        if (mPunts[numAleatoriFiles][numAleatoriColumnes] == TipusCasella.EN_BLANC.getTipus()) {
+            System.out.println("Casella [" +  numAleatoriFiles + "][" + numAleatoriColumnes + "] lliure.");
+            mPunts[numAleatoriFiles][numAleatoriColumnes] = TipusCasella.DOBLE_LLETRA.getTipus();
+        } else {
+            inicialitzarLletresDobleTant();
+        }
     }
 }
