@@ -23,6 +23,7 @@ public class Scrabble {
         for (int i = 0; i < 5; i++) {
             scrabble.inicialitzarLletresDobleTant();
         }
+        scrabble.inicialitzarLletresTripleTant();
         scrabble.mostrarTauler();
     }
 
@@ -161,5 +162,24 @@ public class Scrabble {
         }
 
         System.out.println("Caselles simètriques marcades a partir de [" + fila + "][" + columna + "].");
+    }
+
+    public void inicialitzarLletresTripleTant() {
+        // Generem una posició inicial aleatòria dins de les tres primeres posicions
+        int limit = 3;
+        int filaInicial = (int)(Math.random() * limit);
+        int columnaInicial = (int)(Math.random() * limit);
+
+        System.out.println("Posició inicial de L: [" + filaInicial + "][" + columnaInicial + "]");
+
+        // Recorrem el tauler en intervals de 4 files i 4 columnes
+        for (int fila = filaInicial; fila < qFilesTauler; fila += 4) {
+            for (int columna = columnaInicial; columna < qColumnesTauler; columna += 4) {
+                if (mPunts[fila][columna] == TipusCasella.EN_BLANC.getTipus()) {
+                    mPunts[fila][columna] = TipusCasella.TRIPLE_LLETRA.getTipus();
+                    System.out.println("L posada a [" + fila + "][" + columna + "]");
+                }
+            }
+        }
     }
 }
