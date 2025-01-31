@@ -55,15 +55,6 @@ public class Scrabble {
         System.out.println("Tauler inicialitzat correctament.");
     }
 
-    public void mostrarTauler() {
-        for (int i = 0; i < qFilesTauler; i++) {
-            for (int j = 0; j < qColumnesTauler; j++) {
-                System.out.print(mPunts[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
     public Punt centreTauler() {
         int centreFila = qFilesTauler / 2;
         int centreColumna = qColumnesTauler / 2;
@@ -170,16 +161,47 @@ public class Scrabble {
         int filaInicial = (int)(Math.random() * limit);
         int columnaInicial = (int)(Math.random() * limit);
 
-        System.out.println("Posició inicial de L: [" + filaInicial + "][" + columnaInicial + "]");
+        System.out.println("Posició inicial de 'L': [" + filaInicial + "][" + columnaInicial + "]");
 
         // Recorrem el tauler en intervals de 4 files i 4 columnes
         for (int fila = filaInicial; fila < qFilesTauler; fila += 4) {
             for (int columna = columnaInicial; columna < qColumnesTauler; columna += 4) {
                 if (mPunts[fila][columna] == TipusCasella.EN_BLANC.getTipus()) {
                     mPunts[fila][columna] = TipusCasella.TRIPLE_LLETRA.getTipus();
-                    System.out.println("L posada a [" + fila + "][" + columna + "]");
+                    System.out.println("'L' posada a [" + fila + "][" + columna + "]");
                 }
             }
         }
+    }
+
+    public void mostrarTauler() {
+        System.out.println("Tauler Scrabble:");
+        // Mostrar la numeració de les columnes en la part superior
+        System.out.print("   "); // Espai inicial per a l'alineació
+        for (int j = 1; j <= qColumnesTauler; j++) {
+            System.out.printf("%2d ", j);
+        }
+        System.out.println();
+
+        for (int i = 0; i < qFilesTauler; i++) {
+            // Mostrar la numeració de les files a l'esquerra
+            System.out.printf("%2d ", i + 1);
+
+            // Mostrar el contingut del tauler
+            for (int j = 0; j < qColumnesTauler; j++) {
+                System.out.print(mPunts[i][j] + "  ");
+            }
+
+            // Mostrar la numeració de les files a la dreta
+            System.out.printf("%2d", i + 1);
+            System.out.println();
+        }
+
+        // Mostrar la numeració de les columnes en la part inferior
+        System.out.print("   "); // Espai inicial per a l'alineació
+        for (int j = 1; j <= qColumnesTauler; j++) {
+            System.out.printf("%2d ", j);
+        }
+        System.out.println();
     }
 }
