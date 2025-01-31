@@ -20,7 +20,9 @@ public class Scrabble {
         scrabble.inicialitzarAspesAmbParaulesDobleTant();
         scrabble.inicialitzarCantonsAmbParaulesTripleTant();
         scrabble.inicialitzarMeitatsAmbParaulesTripleTant();
-        scrabble.inicialitzarLletresDobleTant();
+        for (int i = 0; i < 5; i++) {
+            scrabble.inicialitzarLletresDobleTant();
+        }
         scrabble.mostrarTauler();
     }
 
@@ -120,13 +122,44 @@ public class Scrabble {
     }
 
     public void inicialitzarLletresDobleTant() {
-        int numAleatoriFiles = (int)(Math.random() * qFilesTauler);
-        int numAleatoriColumnes = (int)(Math.random() * qColumnesTauler);
-        if (mPunts[numAleatoriFiles][numAleatoriColumnes] == TipusCasella.EN_BLANC.getTipus()) {
-            System.out.println("Casella [" +  numAleatoriFiles + "][" + numAleatoriColumnes + "] lliure.");
-            mPunts[numAleatoriFiles][numAleatoriColumnes] = TipusCasella.DOBLE_LLETRA.getTipus();
-        } else {
-            inicialitzarLletresDobleTant();
+        int intents = Math.max(qFilesTauler, qColumnesTauler); // Límits d'intents per evitar bucles infinits
+        while (intents > 0) {
+            int numAleatoriFiles = (int)(Math.random() * qFilesTauler);
+            int numAleatoriColumnes = (int)(Math.random() * qColumnesTauler);
+
+            if (mPunts[numAleatoriFiles][numAleatoriColumnes] == TipusCasella.EN_BLANC.getTipus()) {
+                System.out.println("Casella [" + numAleatoriFiles + "][" + numAleatoriColumnes + "] lliure.");
+
+                // Marquem la casella i les seves simètriques
+                marcarCasellesSimetriquesDobleLletra(numAleatoriFiles, numAleatoriColumnes);
+                return; // Sortim després de col·locar les caselles
+            }
+            intents--;
         }
+        System.out.println("No s'han trobat caselles lliures.");
+    }
+
+    public void marcarCasellesSimetriquesDobleLletra(int fila, int columna) {
+        // Marquem la posició original lliure
+        mPunts[fila][columna] = TipusCasella.DOBLE_LLETRA.getTipus();
+
+        // Simetria vertical
+        int simetriaVertical = qFilesTauler - 1 - fila;
+        if (simetriaVertical >= 0 && simetriaVertical < qFilesTauler) {
+            mPunts[simetriaVertical][columna] = TipusCasella.DOBLE_LLETRA.getTipus();
+        }
+
+        // Simetria horitzontal
+        int simetriaHoritzontal = qColumnesTauler - 1 - columna;
+        if (simetriaHoritzontal >= 0 && simetriaHoritzontal < qColumnesTauler) {
+            mPunts[fila][simetriaHoritzontal] = TipusCasella.DOBLE_LLETRA.getTipus();
+        }
+
+        // Simetria diagonal
+        if (simetriaVertical >= 0 && simetriaVertical < qFilesTauler && simetriaHoritzontal >= 0 && simetriaHoritzontal < qColumnesTauler) {
+            mPunts[simetriaVertical][simetriaHoritzontal] = TipusCasella.DOBLE_LLETRA.getTipus();
+        }
+
+        System.out.println("Caselles simètriques marcades a partir de [" + fila + "][" + columna + "].");
     }
 }
