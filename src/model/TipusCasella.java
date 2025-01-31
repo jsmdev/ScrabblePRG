@@ -1,3 +1,7 @@
+// José Sancho Monrabal
+// 1 DAW - PRG
+// Variant del joc de l'Scrabble, on només participarà 1 jugador
+
 package model;
 
 public enum TipusCasella {

@@ -2,10 +2,9 @@
 // 1 DAW - PRG
 // Variant del joc de l'Scrabble, on només participarà 1 jugador
 
+import java.util.Scanner;
 import model.TipusCasella;
 import model.Punt;
-
-import java.util.Scanner;
 
 public class Scrabble {
     private char[][] mPunts;
