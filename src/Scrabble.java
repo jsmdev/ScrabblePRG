@@ -19,6 +19,8 @@ public class Scrabble {
         scrabble.crearTauler();
         scrabble.inicialitzarTauler();
         scrabble.inicialitzarAspes();
+        scrabble.inicialitzarCantons();
+        scrabble.inicialitzarMeitats();
         scrabble.mostrarTauler();
     }
 
@@ -95,5 +97,25 @@ public class Scrabble {
                 mPunts[centreFila + i][centreColumna - i] = TipusCasella.DOBLE_PARAULA.getTipus();
             }
         }
+    }
+
+    public void inicialitzarCantons() {
+        // Posar 'P' als quatre cantons
+        mPunts[0][0] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Superior esquerra
+        mPunts[0][qColumnesTauler - 1] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Superior dreta
+        mPunts[qFilesTauler - 1][0] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Inferior esquerra
+        mPunts[qFilesTauler - 1][qColumnesTauler - 1] = TipusCasella.TRIPLE_PARAULA.getTipus(); // Inferior dreta
+
+        System.out.println("Quatre cantons del tauler inicialitzats amb 'P'");
+    }
+
+    public void inicialitzarMeitats() {
+        // Posar 'P' a la meitat de cada costat
+        mPunts[0][qColumnesTauler / 2] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Superior
+        mPunts[qFilesTauler - 1][qColumnesTauler / 2] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Inferior
+        mPunts[qFilesTauler / 2][0] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Esquerra
+        mPunts[qFilesTauler / 2][qColumnesTauler - 1] = TipusCasella.TRIPLE_PARAULA.getTipus();  // Dreta
+
+        System.out.println("Quatre meitats de cada costat del tauler inicialitzats amb 'P'");
     }
 }
